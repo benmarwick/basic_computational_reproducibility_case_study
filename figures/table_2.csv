@@ -1,0 +1,4 @@
+Degree of reproducibility,Description
+Low reproducibility,"The journal article is the only record of the research, with the reader invited to contact the author for more details."
+Moderate reproducbility,The journal article is accompanied by files of raw data tables in PDF files and supplementary text describing the methods in more detail.
+High reproducibility,"The journal article includes DOIs to an open access repository that contains plain text files (e.g., CSV format) of raw data, version-controlled script files of R or Python code to reproduce the numbers and figures in the article, and a dockerfile that documents the computational environment of the published analysis. "

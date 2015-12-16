@@ -1,0 +1,38 @@
+\documentclass{standalone}
+\usepackage{tikz}
+ 
+ 
+\newcommand\commit[2]{\node[commit] (#1) {}; \node[clabel] at (#1) {\texttt{#1}: #2};}
+\newcommand\ghost[1]{\coordinate (#1);}
+\newcommand\connect[2]{\path (#1) to[out=90,in=-90] (#2);}
+ 
+\begin{document}
+
+\begin{tikzpicture}
+\tikzstyle{commit}=[draw,circle,fill=white,inner sep=0pt,minimum size=10pt]
+\tikzstyle{clabel}=[right,outer sep=1em]
+\tikzstyle{every path}=[draw]
+\matrix [column sep={1em,between origins},row sep=\lineskip]
+{
+ 
+\commit{d764b48}{starting figure ten} & \\
+\commit{54ba4b2}{finish figure nine} & \\
+\commit{c589395}{Merge branch `master'} & \\
+ & \commit{e398b43}{change back to linear scale} \\
+ & \commit{9f9c652}{experiment with log base 2 scale axis} \\
+\commit{b3bd158}{add dates for second x-axis} & \ghost{branch1} \\
+\commit{63268c1}{starting figure nine} & \\
+};
+ 
+%% connections
+ 
+\connect{63268c1}{b3bd158};
+\connect{63268c1}{branch1};
+\connect{branch1}{9f9c652};
+\connect{9f9c652}{e398b43};
+\connect{b3bd158}{c589395};
+\connect{e398b43}{c589395};
+\connect{c589395}{54ba4b2};
+\connect{54ba4b2}{d764b48};
+\end{tikzpicture}
+\end{document}

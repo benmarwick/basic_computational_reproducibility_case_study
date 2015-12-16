@@ -1,0 +1,260 @@
+---
+title: "Computational Reproducibility in Archaeological Research: Basic Principles and a  Case Study of Their Implementation"
+shorttitle: "Basic Computational Reproducibility"
+author: 
+  - name: Ben Marwick
+    affiliation: 1, 2 
+    corresponding: yes    # Define only one corresponding author
+    address: Department of Anthropology, University of Washington, Seattle
+    email: bmarwick@uw.edu
+affiliation:
+  - id: 1
+    institution: Department of Anthropology, University of Washington, Seattle
+    affiliation:
+  - id: 2
+    institution: Center for Archaeological Science, University of Wollongong, Australia
+
+abstract: |
+  The use of computers and complex software is pervasive in archaeology, yet their role in the analytical pipeline is rarely exposed for other researchers to inspect or reuse. This limits the progress of archaeology because researchers cannot easily reproduce each other's work to verify or extend it. Four general principles of reproducible research that have emerged in other fields are presented. An archaeological case study is described that shows how each principle can be implemented using freely available software. The costs and benefits of implementing reproducible research are assessed. The primary benefit, of sharing data in particular, is an increased number of citations. The primary cost is the additional time required to enhance reproduciblity, although the exact amount is difficult to quantify. 
+  
+# note: |  
+#  Complete departmental affiliations for each author (note the indentation, if you start a new paragraph).
+
+#  Enter author note here.
+  
+# keywords: "keywords"
+
+# wordcount: 
+
+class: man
+lang: american
+figsintext: no
+lineno: yes
+bibliography:
+  - references.bib
+header-includes:
+   - \usepackage{longtable}
+   - \usepackage{rotating}
+   - \usepackage{booktabs}
+
+output: papaja::apa6_pdf
+---
+
+```{r message = FALSE, warning = FALSE}
+library("papaja")
+apa_prepare_doc() # Prepare document for rendering
+```
+
+
+
+# Introduction  
+
+Archaeology, like all scientific fields, advances through rigorous tests of previously published studies. When numerous investigations are performed by different researchers and demonstrate similar results, we hold these results to be a reasonable approximation of a true account of past human behavior. This ability to reproduce the results of other researchers is a core tenet of scientific method, and when reproductions are successful, our field advances. In archaeology we have a long tradition of empirical tests of reproducibility, for example, by returning to field sites excavated or surveyed by earlier generations of archaeologists, and re-examining museum collections with new methods. 
+
+However we, like many disciplines, have made little progress in testing the reproducibility of statistical and computational results, or even facilitating or enabling these tests [@Ince2012; @peng2011reproducible]. The typical contemporary journal article describing the results of an archaeological study rarely contains enough information for another archaeologist to reproduce its statistical results and figures. Raw data are rarely openly and fully provided, perhaps due to the absence of data-sharing standards that acknowledge the sensitive nature of much of our data. Similarly, many of the decisions made in cleaning, tidying, analyzing and visualizing the data are unrecorded and unreported. This is a problem because as computational results become increasingly common and complex in archaeology, and we are increasingly dependent on software to generate our results, we risk deviating from the scientific method if we are unable to reproduce the computational results of our peers [@Dafoe2014]. A further problem is that when the methods are underspecified, it limits the ease with which they can be reused by the original author, and extended by others [@Donoho2009; @Buckheit1995; @schwab2000making]. This means that when a new methods paper in archaeology is published as a stand-alone account (i.e., without any accompanying software), it is challenging and time-consuming for others to benefit from this new method. This is a substantial barrier to progress in archaeology, both in establishing the veracity of previous claims and promoting the growth of new interpretations. Furthermore, if we are to  contribute to contemporary conversations outside of archaeology (as we are supposedly well-positioned to do, cf. @kintigh2014grand), we need to become more efficient, interoperative and flexible in our research. We have to be able to invite researchers from other fields into our research pipelines to collaborate in answering interesting and broad questions about past societies. 
+
+In this paper I address these problems by demonstrating a research methodology that enables computational reproducibility for archaeology at the level of a familiar research product, the journal article (Figure \ref{fig:workflow}). First, I outline the general principles that motivate this approach. These principles have been derived from software engineering and developed and refined over the last several years by researchers in computationally intensive fields such as genomics, ecology, astronomy, climatology, neuroscience, and oceanography [@stodden2013best; @Wilson2014]. Although the data produced by some of these disciplines are often used by archaeologists, efforts towards improving reproducibilty in these fields have seen little uptake among archaeologists. The principles are ordered by scope, such that the first principle is applicable to every archaeological publication that makes claims based on archaeological evidence, the second principle is applicable to most publications that contain quantitative results, and the third and fourth principles are most applicable to publications that report substantial and complex quantitative results. In the second part of the paper, I describe a case study of a recent archaeological research publication and its accompanying research compendium. In preparing this publication I developed new methods for enabling the reproducibility of the computational results. I describe these methods and the specific tools used in this project to follow the general principles. While the specific tools used in this example will likely be replaced by others a few years from now, the general principles presented here are tool-agnostic, and can serve as a guide for archaeologists into the future. 
+
+# General principles of a reproducible methodology  
+
+## Data and code provenance, sharing and archiving  
+
+Perhaps the most trivial principle of reproducible research is making openly available the data and methods that generated the published results. This is a computational analogue to the archaeological principle of artefact provenience. For example, without provenience information, artifacts are nearly meaningless; without providing data and code, the final published results are similarly diminished. Making data and code available enables others to inspect these materials to evaluate the reliability of the publication, and to include the materials into other projects, and may lead to higher quality and more impactful published research [@Piwowar2007; @Gleditsch2003; @Wicherts2011]. While might seem a basic principle for reproducible research, current community norms in archaeology, like many disciplines, do not encourage or reward the sharing of data and other materials used in the research leading to journal articles [@Stodden2013; @Tenopir2011; @borgman2012conundrum; @mccullough2007got]. While funding agencies, such as the US National Science Foundation (NSF), require a data management plan (DMP) in proposals, and some journals, such as PLOS ONE and Nature, require data availability statements, none of these require all archaeologists to make their data available by default [@Begley2015c; @Miguel2014]. For archaeology submissions to the NSF, the DMP recommendations were developed by the Society of American Archaeologists, rather than from within the NSF [@rieth2013]. 
+
+It is difficult to prescribe a single approach to making data and other materials openly available because of the wide variety of archaeological data, and the diversity of contexts it is collected [@Kintigh2006]. As a general principle that should be applicable in all cases, the provenance of the data must always be stated, even if the data are not publicly accessible (for example, due to copyright limitations, cultural sensitivities, for protection from vandalism, or because of technical limitations). Where a journal article includes data summaries and visualizations, the principle is that authors make publicly available (ie. not 'by request') the computer files containing the most raw form possible of the data from which the summaries and plots were generated (eg. spreadsheets of individual measurement records). This minimalist approach means that only the data needed to support the publication should be released, the rest can be kept private while further work is done without risk of being scooped. The data files should be archived in an online repository that issues persistent URLs (such as DOIs), that has a commitment to long-term sustainability (such as participation in the CLOCKSS scheme, @reich2008clockss) and requires open licenses (such as CC-BY or CC-0) for datasets [@Stodden2009]. Discipline-agnostic repositories include figshare.com and zenodo.org, and repositories and data sharing services specifically for archaeologists include the Archaeological Data Service, the Digital Archaeological Record, and Open Context [@Arbuckle2014; @kansa2011archaeology].
+
+## Scripted analyses  
+
+The dominant mode of interaction with data analysis tools for many researchers is a mouse-operated point-and-click interface with commercial software such as Microsoft's Excel, IBM's SPSS and SAS's JMP [@Keeling2007; @thompson2012reproducible]. This method of interaction is a formidable obstacle to reproducibility because mouse gestures leave few traces that are enduring and accessible to others [@Wilson2014]. Ad hoc edits of the raw data and analysis can easily occur that leave no trace and interrupt the sequence of analytical steps [@Sandve2013]. While it is possible for a researcher to write down or even video their mouse-driven steps for others to reproduce, and this would be an excellent first step for sharing methods in many cases, these are rather cumbersome and inefficient methods for communicating many types of analyses. A second problem with much mouse-driven software is that the details of the data analysis are not available for inspection and modification because of the proprietary code of the software [@Ince2012; @Vihinen2015]. This constrains the transparency of research conducted with much commercial and mouse-driven software [@Hatton1994].
+
+While there are many conceivable methods to solve these problems (such as writing out all the operations in plain English or making a video screen-capture of the analysis), currently the most convenient and efficient solution is to interact with the data analysis tools using a script [@Joppa2013]. A script is a plain text file containing instructions composed in a programming language that direct a computer to accomplish a task. In a research context, researchers in fields such as physics, ecology and biology write scripts to do data ingest, cleaning, analysis, visualizing, and reporting. By writing scripts, a very high resolution record of the research workflow is created, and is preserved in a plain text file that can be reused and inspected by others [@Gentleman2007a]. Data analysis using scripts has additional advantages of providing great flexibility to choose from a wide range of traditional and cutting-edge statistical algorithms, and tools for automation of repetitive tasks. Sharing these scripts may also increase the impact of the published research [@Vandewalle2012]. The general approach of a scripted workflow to explicitly and unambiguously carry out instructions embodies the principles of reproducibility and transparency. Examples of programming languages used for scripting scientific analyses include R, Python and MATLAB [@Tippmann2014; @Perkel2015; @Bassi2007; @Eglen2009]. Among archaeologists who share code with their publications, R is currently the most widely used programming language [@peeples2012refining; @contreras2014summed; @crema2014approximate; @drake2014strontium; @dye2011model; @lowe2014ground; @mackay2014putslaagte; @marwick2013multiple; @shennan2015isolation; @borck2015social; @bocinsky2014extrinsic; @bocinsky20142; @guedes2015impact].
+
+## Version control  
+
+All researchers face the challenge of managing different versions of their computer files. A typical example, in the simple case of a solo researcher, is where multiple revisions of papers and datasets are saved as duplicate copies with slightly different file names (for example, appending the date to the end of the file name). In a more complex situation with multiple researchers preparing a report of publication, managing contributions from different authors and merging their work into a master document can result in a complex proliferation of files that can be very challenging to manage efficiently. While this complexity can be an inconvenience, it can lead to more profound problems of losing track of the provenance of certain results, and in the worst cases, losing track of the specific versions of files that produced the published results [@Jones2013a].  
+
+One solution to these problems is to use a formal version control system (VCS)  [@Sandve2013], initially developed for managing contributions to large software projects, and now used for many other purposes where multiple people are contributing to one file or collection of files. Instead of keeping multiple copies of a file, a VCS separately saves each change to a version control database (known as a 'commit', for example, the addition of a paragraph of text or a chunk of code) along with a comment describing the change. The commit history preserves a high-resolution record of the development of a file or set of files. Commits function as checkpoints where individual files or an entire project can be safely reverted to when necessary. Many VCSs allow for branching, where alternate ideas can be explored in a structured and documented way without disrupting the central flow of a project. Successful explorations can be merged into the main project, while dead ends can be preserved in an orderly way [@Noble2009]. This is useful in two contexts, firstly to enable remote collaborators to work together without overwriting each other's work, and secondly, to streamline responding questions from reviewers about why one option was chosen over another because all the analytical pathways explored by the authors are preserved in different branches in the VCS [@Ram2013]. Version control is a key principle for reproducible research because of the transparency it provides. All decision points in the research workflow are explicitly documented so others can see why the project proceeded in the way it did. Researchers in other areas of science currently use Git or Subversion as a VCS [@Jones2013a], often through a public or private online hosting service such as GitHub, BitBucket or GitLab.
+
+## Computational environments   
+
+Most researchers use one of three operating systems as their primary computational environment, Microsoft Windows, Apple OS X or Linux. Once we look beyond the level of this basic detail, our computational environments diversify quickly, with many different versions of the same operating system in concurrent use, and many different versions of common data analysis software in concurrent use. For basic data analysis, the primary problem here is poor interoperability of file types from different versions of the same software. But for more complex projects that are dependent on several pieces of complex software from diverse sources, it is not uncommon for one of those pieces to change slightly (for example, when an update is released, a minor configuration is changed, or because different operating systems causes programs to behave differently), introducing unexpected output and possibly causing the entire workflow to fail [@Glatard2015]. For example, computationally intensive analyses often use mathematical functions based on single-precision floating-point arithmetic whose implementations vary between software [@Keeling2007] and across operating systems. For archaeologists this issue is particularly relevant to simulation studies. This situation can make it very challenging to create a research pipeline that will remain reproducible on any computer other than that of the researcher who constructed it (and into the future on the same computer, as its component software changes in ways that are beyond control of the researcher, due to automatic updates). 
+
+At the most general level, the principle that attempts to solve this problem is to provide a description of how other researchers can recreate the computational environment of the research pipeline. The simplest form of this is a list of the key pieces software and their version numbers, this is often seen in the archaeological literature where exotic algorithms are used. In other fields, where computationally intensive methods are more widespread, and software dependencies are more extensive, more complex approaches have emerged, such as machine-readable instructions for recreating computational environments, or providing the entire actual computational environment that the analysis was conducted in [@Howe2012; @Dudley2010]. Either of these provides another researcher with an identical copy of the operating systems and exact versions of all software dependencies. The ideal solution is to provide both, because providing the actual environment alone can result in a 'black box' problem where the specific details of the environment are not available for inspection by another researcher, and the environment cannot easily be extended or joined to other environments for new projects. This results in a loss of transparency and portability, but this can be mitigated by providing a plain-text file that contains the instructions on how to recreate the environment in a machine-readable format. With this information researchers can easily see the critical details of the environment, as well as efficiently recombine these details into other environments to create new research workflows. Examples of systems currently used by researchers to capture the entire environments include virtual machines (eg. Oracle's VirtualBox) and GNU/Linux containers (eg. Docker). These environments are designed to be run in an existing operating system, so a researcher might have a GNU/Linux virtual machine running within their Windows or OS X computer. Vagrantfiles and Dockerfiles are common examples of machine-readable plain-text instructions for making virtual machines to an exact specification. One advantage of using self-contained computational environment like a virtual machine or container is that it is portable, and will perform identically whether it is used on the researcher's laptop or high-performance facilities such as a commercial cloud computing service [@Hoffa2008]. While these more complex approaches may seem a bridge too far for most archaeologists, they offer some advantages for collaborating in a common computing environment (i.e., in a project involving two or more computers using a virtual machine or container environment can simplify collaboration), and for working on small-scale iterations of an analysis prior to scaling up to time-consuming and expensive computations. 
+
+To summarize, in this section I have described four general principles of reproducible research. These principles have been derived from current efforts to improve computational reproducbility in other fields, such as as genomics, ecology, astronomy, climatology, neuroscience, and oceanography. The four principles are: make data and code openly available and archive it in a suitable location, use a programming language to write scripts for data analysis and visualiations, use version control to manage multiple versions of files and contributions from collaborators, and finally, document and share the computational environment of the analysis. Researchers following these principles will benefit from an increase in the transparency and efficiency of their research pipeline [@markowetz2015five]. Results generated using these principles will be easier for other researchers to understand, reuse and extend.  
+
+# Case study: The 1989 excavation at Madjebebe, Northern Territory, Australia  
+
+In this section I describe my efforts to produce a publication of archaeological research that demonstrates the above principles of reproducible research. I describe the specific tools that I used, explain my reasons for choosing these tools, and note any limitations and obstacles I encountered.  Our paper on Madjebebe [@Clarkson2015] describes familiar types of evidence from a hunter-gatherer rockshelter excavation - stone artefacts, dates, sediments,  mollusks. We -- the co-authors of the Madjebebe paper and I -- mostly used conventional and well-established methods of analyzing, summarizing and visualizing the data. In this example I expect the a typical reader will recognize the types of raw data we used (measurements and observations from stone artefacts, dates, sediments,  mollusks), and the output of our analysis (plots, tables, simple statistical test results). The novel component here is how we worked from the raw data to the published output. For this Madjebebe publication we experimented with the principles of reproducible research outlined above, and used data archiving, a scripted analytical pipeline, version control, and an isolated computational environment. Additional details of our specific implementations are available at @Marwick2015. 
+
+That standard and familiar nature of the archaeological materials and methods used in the paper about Madjebebe should make it easy for the reader to understand how the methods for enhancing reproducibility described here can be adapted for the majority of research publications in archaeology.  I recognize that not every research project can incorporate the use of these tools (for example, projects with very large amounts of data or very long compute times). However, my view is that the principles and tools described here are suitable for the majority of published research in archaeology (where datasets are small, ie. <10 GB, and analysis compute times are short ie. <30 min). 
+
+## Figshare for data archiving  
+
+We chose Figshare to archive all the files relating to the publication, including raw data, which we uploaded as a set of CSV files (Figure \ref{fig:file_structure}). CSV stands for comma separated variables and is an open file format for spreadsheet files that can be opened and edited in any text editor or spreadsheet program. Although there are data repositories designed specifically for archaeologists [eg. @richards1997preservation; @beale2012community; @kansa2012openness], some of these are fee-based services and, at the time we deposited our data, they all lacked a programmatic interface and connections to other online services (such as GitHub, our version control backup service). Figshare is a commercial online digital repository service that provides instant free unlimited archiving of any type of data files (up to 250 MB per file) for individual researchers in any field, and automatically issues persistent URLs (DOIs). Figshare also supplies file archiving services for many universities and publishers, including PLOS and Nature. Figshare allows the user to apply permissive Creative Commons licenses to archived files that specify how the files may be reused. We chose the CC0 license for our data files (equivalent to a release in the public domain), this is widely used and recommended for datasets [@Stodden2009]. The CC0 license is simpler than the related CC-BY (requiring attribution) and CC-NC (prohibiting commercial use) license, so CC0 eliminates all uncertainty for potential users, encouraging maximal reuse and sharing of the data. We also archived our programming code on Figshare and applied the MIT license which is a widely used software license that permits any person to use, copy, modify, merge, publish, distribute, sublicense and/or sell copies of the code [@morin2012quick; @henley2008open]. Our motivation for choosing these licenses is to clearly communicate to others that we are comfortable with our data and code to be reused in any way - with appropriate attrition [@Stodden2009]. The MIT license has the added detail of specifically not providing a warranty of any kind and absolving us as authors from liability for any damages or problems that others might suffer or encounter when using our code.
+
+## R for scripting the analysis   
+
+I used the R programming language to script our data analysis and visualization workflow. I chose R because it is a highly expressive, functional, interpretive, object-oriented language that was originally developed by two academic statisticians in the 1990s [@Chambers2009; @Wickham2014]. Like Python, R is a free and open source complete programming language. Where the two differ is that R is heavily customised for data analysis and visualisation [@Gandrud2013; @tippmann2015programming]. Python, which has a reputation for readability and ease of use, is a general-purpose programming tool with fewer customisations for data analysis and visualisation [@perkel2015programming]. In the last decade R has acquired a large user community of researchers, including archaeologists, many of whom contribute packages to a central open repository that extend the functionality of the language [@Mair2015rusers]. These packages are typically accompanied by peer-reviewed scholarly publications that explain the algorithms presented in the package. Such a large and active community means that many common data analysis and visualization tasks have been greatly simplified by R packages, which is a key factor in my choice of this language. For example, rOpenSci is a collective of scientists mostly in ecology, evolution, and statistics that supports the development of R packages to access and analyse data, and provide training to researchers [@boettiger2015building]. Our publication depended on nineteen of these user-contributed packages, which saved me a substantial amount of programming effort. I also organised our code as a custom R package because it provides a logical and widely shared structure to organizing the analysis and data files. The R package structure gives us access to the many quality control tools involved in package building, and is a convenient template for projects of any scale [@Wickham2015]. Because packages are ubiquitous among R users, we hope that by providing our code as an R package the use of familiar conventions for organizing the code will make it easier for other users to inspect, use and extend our code. 
+
+The knitr and rmarkdown packages are especially relevant to our efforts to make our analysis reproducible [@Xie2013]. Knitr provides algorithms for dynamically converting text and R code into formatted documents (i.e., PDF, HTML or MS Word) that contain the text and the output of the code, such as tables and plots. Rmarkdown provides an authoring format that enables the creation of dynamic documents using a simple syntax (related to HTML and LaTeX, but simpler) for formatting text and managing citations, captions and other typical components of a scientific document [@Baumer2014; @Baumer2015]. The rmarkdown package uses a document formatting language called markdown, which has a simple syntax for styling text, and extends it into a format called R markdown that enables embedded computation of R code contained in the markdown document. Using syntax for styling in markdown (and HTML, LaTeX, etc.) is different to composing and editing in Microsoft Word because markdown separates presentation from content. An example of this can be seen in the heading in figure \ref{fig:literate_programming}, where the two hash symbols are the syntax for a heading, and the formatting is applied only when the document is executed.  Together, the knitr and rmarkdown packages enabled us to compose a single plain-text source document that contained interwoven paragraphs of narrative text and chunks of R code. This approach has the code located in context with the text so any reader can easily see the role of the code in the narrative. This results in an executable paper [cf. @leisch2011executable; @nowakowski2011collage], which, when rendered by the computer using the knitr package, interprets the R code to generate the statistical and visual output and applies the formatting syntax to produce readable output in the form of a HTML, Microsoft Word or PDF file that contains text, statistical results and tables, and data visualizations. This practice of having documentation and code in a single interwoven source document is known as literate programming [@Knuth1984]. This is a focus of many efforts to improve the reproducibility of research, for example, by computer scientists and neuroscientists [@Schulte2012; @Stanisic2015; @Delescluse2012; @Abari2012], but is not a mainstream practice in any field. 
+
+## Git and GitHub for version control and code sharing  
+
+I chose Git as our version control system because it is by far the most widely used version control system at the moment, both in research contexts and for software engineering [@Loeliger2012; @Jones2013a]. Git is a free and open source cross-platform program for tracking changes in plain text documents. The current popularity of Git is important because it means there is a lot of documentation and examples available to learn how to use the system. The key benefit of using Git was saving episodes of code-writing in meaningful units, for example the preparation of each figure was a single commit (Figure \ref{fig:git}). This was helpful because if some new code had an unexpected effect on an earlier figure, I could revert back to the previous commit where the code worked as expected. This high-resolution control over the progress of the code-writing provided by the version control system was helpful for identifying and solving problems in the analysis. During the peer-review and proofing stages I used Git commits to indicate the exact version of the code that was used for the draft, revised and final versions of the paper, which was helpful for keeping track of the changes we made in response to the reviewers' comments. 
+
+I used GitHub as a remote backup for our project, hosting the code and data files together with their Git database. GitHub is one of several commercial online services that hosts Git repositories and provides online collaboration tools (GitHub repositories that are open to the public are free, but fees are charged for private repositories; fee-waivers are available for academic users). While writing the paper, we worked on a private GitHub repository that was not publicly accessible because we needed approval from other stakeholders (the Aboriginal group on whose land the archaeological site is located) of the final paper before revealing it to the public. When the paper was published, I made the repository open and publicly available on GitHub [@Barnes2010], as well as archiving a copy of the code on Figshare with the data. The code on Figshare is frozen to match the output found in the published article, but the code on GitHub continues to be developed, mostly minor edits and improvements that do not change the contented of the executed document. GitHub has Git-based tools for organizing large-scale collaboration on research projects that are widely used in other fields, but we did not use these because of the small scale of our project [@Gandrud2013b]. 
+
+## Docker for capturing the computational environment   
+
+Currently there are two widely used methods for creating portable, isolated computational environments. The most established method is to create a virtual machine, usually taking the form of a common distribution of GNU/Linux such as Ubuntu or Debian. Although this is a widely used and understood method, it is also time-consuming to prepare the virtual machine, and the virtual machine occupies a relatively large amount of disk space (8 Gb in our case). We preferred the GNU/Linux container method because the virtual environment can be created much faster (which is more convenient for iteration) and the container image occupies much less disk space. The key difference between the two is that a virtual machine replicates an entire operating system, while the container image only shares some of the system resources to create an isolated computational environment, rather than requiring a complete system for each environment (Figure \ref{fig:docker}). The low resource use of the container system makes it possible to run several virtual environments simultaneously on a Windows or Mac desktop or laptop computer. 
+
+The specific GNU/Linux container system we used is called Docker, and is currently the dominant open source container system [@Boettiger2015]. Like Git and R, Docker is a free and open source program. Docker is developed by a consortium of software companies, and they host an open, version-controlled online repository of ready-made Docker images, known as the Docker Hub, including several that contain R, RStudio in the GNU/Linux operating system. We used images provided by other R users as our base image, and wrote a Dockerfile to specify further customizations on this base image. These include the installation of the JAGS library [@plummer2003jags] to enable efficient Bayesian computation in R. Our Docker image is freely available on the Docker Hub and may be accessed by anyone wanting access to the original computational environment that we used for our analysis. Similarly, our Dockerfile is included in our code repository so that the exact contents of our Docker image are described (for example, in case the Docker Hub is unavailable, a researcher can rebuild our Docker image from the Dockerfile). Using the Dockerfile, our image can be reconstituted and extended for other purposes. We treated our Docker image as a disposable and isolated component, deleting and recreating it regularly to be sure that the computational environment documented in the Dockerfile could run our analyses. 
+
+# Discussion 
+
+Developing competence in using these tools for enhancing computational reproducibility is time-consuming, and raises the question of how much of this is practical for most archaeologists, and what the benefits and costs might be. Our view is that once the initial costs of learning the tools is paid off, implementing the principals outlined above makes research and analysis easier, and has material professional benefits.
+
+Perhaps the best established benefit is that papers with publicly available datasets receive a higher number of citations than similar studies without available data. Piwowar et al. [-@Piwowar2007] investigated 85 publications on microarray data from clinical trials and found that papers that archived their data were cited 69% more often than papers that did not archive. However, a larger follow-up study by Piwowar and Vision [-@piwowar2013data] of 10,557 articles that created gene expression microarray data discovered only a 9% citation advantage for papers with archived data. Henneken and Accomazzi [-@Henneken2011] analysed 3814 articles in four astronomy journals and found that articles with links to open datasets on average acquired 20% more citations than articles without links to data. Restricting the sample to papers published in since 2009 in The Astrophysical Journal, Dorch found that papers with links to data receiving 50% more citations per paper per year, than papers without links to data. In 1,331 articles published in _Paleoceanography_ between 1993 and 2010, Sears [-@sears2011data] found that publicly available data in articles was associated with a 35% increase in citations. While we are not aware of any studies specifically of archaeological literature, similar positive effects of data sharing have been described in the social sciences. In 430 articles in the _Journal of Peace Research_, articles that offered data in any form, either through appendices, URLs, or contact addresses  were on average cited twice as frequently as an article with no data but otherwise equivalent author credentials and article variables [@Gleditsch2003]. It is clear that researchers in a number of different fields following the first principle of reproducible research benefit from a citation advantage for their articles that include publicly available datasets. In addition to increased citations for data sharing, Pienta et al. [-@pienta2010enduring] found that data sharing is associated with higher publication productivity. They examined 7,040 NSF and NIH awards and concluded that a research grant award produces a median of five publications, but when data are archived a research grant award leads to a median of ten publications. 
+
+It is also worth noting that the benefits of using a programming language such as R archaeological analyses extend beyond enhanced reproducibility. From a practical standpoint, users of R benefit from it being freely available for Windows, Unix systems (such as Linux), and the Mac. As a programming language designed for statistics and data visualization, R has the advantage of providing access to many more methods than commercial software packages such as Excel and SPSS. This is due to its status as the lingua franca for academic statisticians [@narasimhan2005lisp; @Widemann2013functional; @morandat2012evaluating], which means that R is the development environment for many recently developed algorithms found in journals [eg. @Reshef2011; @Bonhomme2014], and these algorithms are readily available for archaeologists and others to use. R is widely known for its ability to complex data visualisations and maps with few lines of code [@sarkar2008lattice; @kahle2013ggmap; @wickham2009ggplot2; @bivand2008applied]. Furthermore, our view is that once the learning curve is overcome, for most analyses using R would not take any longer than alternative technologies, and will often save time when previously written code is reused in new projects. 
+
+The primary cost of enhancing reproducibility is the time required to learn to use the software tools. I did not quantify this directly, but my personal experience is that about three years of self-teaching and daily use of R was necessary to develop the skills to code the entire workflow of our case study. Much less time was needed to learn Git and Docker, because the general concepts of interacting with these types of programs are similar to working with R (for example, using a command line interface and writing short functions using flags and arguments). I expect that most archaeologists could develop competence much quicker than I did by participating in short training courses such as those offered by Software Carpentry [@wilson2014software], Data Carpentry [@teal2015data], rOpenSci [@boettiger2015building], and similar organisations, or through the use of R in quantitative methods courses. We did not measure the amount of time required to improve the reproducibility of our case study article because we planned the paper to be reproducible before we started the analysis. This makes it difficult to separate time spent on analytical tasks from time spent on tasks specifically related to reproducibility. This situation, where the case study has 'built-in reproducibility' and the additional time and effort is marginal, may be contrasted with 'bolt-on reproducibility', where reproducibility is enhanced only after the main analysis is complete. In the 'bolt-on' situation, I might estimate a 50% increase in the amount of time required for a project similar to this one. For multi-year projects with multiple teams the time needed for the bolt-on approach would probably make it infeasable. 
+
+The main challenge we encountered using the tools described above in project was the uneven distribution of familiarity with them across our team. This meant that much of the final data analysis and visualization work presented in the publication was concentrated on the team members familiar with these tools. The cause of this challenge is mostly likely the focus on point-and-click methods in most undergraduate courses on data analysis [@Sharpe2013]. The absence of discussion of software in the key texts on statistics and archaeology [@VanPool2010] is also a contributing factor. This contrasts with other fields that where statistical methods and the computational tools to implement them are often described together [@haddock2011practical; @scopatz2015effective; @buffalo2015bioinf]. This makes it difficult for archaeologists to acquire the computational skills necessary to enable reproducible research during a typical archaeology degree, leaving only self-teaching and short workshops as options for the motivated student. 
+
+# Conclusion
+
+We have outlined one potential standard way for enhancing the reproducibility of archaeological research, summarized in figure \ref{fig:workflow}. Our compendium is a collection of files that follows the formal structure of an R package, and includes the raw data, R scripts organised into functions and an executable document, a Git database that includes the history of changes made to all the files in the compendium, and a Dockerfile that recreates the computational environment of our analysis. While the exact components of our compendium will undoubtedly change over time as newer technologies appear, we expect that the general principles we have outlined will remain relevant long after our specific technologies have faded from use. 
+
+Two future directions follow from the principles, tools and challenges that we have discussed above. First, the rarity of archaeologists with the computational skills necessary for reproducible research (as we observed on our group) highlights the need for future archaeologists to be trained as Pi-shaped researchers, rather than T-shaped researchers (Figure \ref{fig:shapes}). Current approaches to postgraduate training for archaeologists results in T-shaped researchers with wide-but-shallow general knowledge, but deep expertise and skill in one particular area. In contrast, a Pi-shaped researcher has the same wide breadth, but to have deep knowledge of both their own domain-specific specialization, as well as a second area of deep knowledge in the computational principles and tools that enable reproducible research [@Faris2011].
+
+A second future direction is the need to incentivise training in, and practicing of, reproducible research by changing the editorial standards of archaeology journals. Although all the technologies and infrastructure to enhance research reproducibility are already available, they are not going to be widely used by researchers until there are strong incentives and a detailed mandate [@McCullough2008; @McCullough2006; @McCullough2003]. One way to incentivise improvements to reproducibility is for journal editors to require submission of research compendia in place of the conventional stand-alone manuscript submission [@Miguel2014]. A research compendium is a manuscript accompanied by code and data files (or persistent links to reputable online repositories) that allows reviewers and readers to reproduce and extend the results without needing any further materials from the original authors [@Gentleman2007a; @king1995replication]. This paper is an example of a research compendium, with the source files available at http://dx.doi.org/10.6084/m9.figshare.1563661, and the case study paper on Madgebebe is more complex example of a compendium, online at http://dx.doi.org/10.6084/m9.figshare.1297059. Requiring submission of compendia instead of simply manuscripts is currently being experimented with by journals in other fields (eg. Quarterly Journal of Political Science, Biostatistics) [@Peng2009; @nosek2015promoting]. The results of these experiments suggest that changing research communication methods and tools is a slow process, but they are valuable to find mistakes in submissions that are otherwise not obvious to reviewers, and they show that such changes to editorial expectations are possible without the journal being abandoned by researchers.
+
+Software pervades every domain of research, and despite its importance in generating results, the choice of tools is very personal [@Healy2011], and archaeologists are given little guidance in the literature or during training. With this paper we hope to begin a discussion on general principles and specific tools to improve the computational reproducibility of published archaeological research. This discussion is important because the choice of tools has ethical implications about the reliability of claims made in publication. Tools that do not facilitate well-documented, transparent, portable and reproducible data analysis workflows may, at best, result in irreproducible, unextendable research that does little to advance the discipline, or, at worst, may conceal accidents or fraudulent behaviors that impede scientific advancement [@baggerly2009deriving; @Lang1993; @Herndon2014; @Laine2007a; @Miller2006].
+
+# Acknowledgements
+
+Thanks to Chris Clarkson, Mike Smith, Richard Fullagar, Lynley A. Wallis, Patrick Faulkner, Tiina Manne, Elspeth Hayes, Richard G. Roberts, Zenobia Jacobs, Xavier Carah, Kelsey M. Lowe, and Jacqueline Matthews for their cooperation with the JHE paper. Thanks to the Mirarr Senior Traditional Owners, and to our research partners, the Gundjeimhi Aboriginal Corporation, for granting permission to carry out the research that was published in the JHE paper, and led to this paper. Thanks to Kyle Bocinsky and Oliver Nakoinz for their helpful peer reviews and many constructive suggestions. This research was carried out as part of ARC Discovery Project DP110102864. I am a contributor to the Software and Data Carpentry projects and the rOpenSci collective, beyond this I declare that I have no conflict of interest.
+
+
+\newpage
+
+\clearpage
+
+\newpage
+
+Tables
+
+```{r table1, message=FALSE}
+library(xtable)
+table1 <- read.csv("../figures/table_1.csv")
+table1 <- xtable(table1, 
+               caption = "Glossary of key terms used in the text", 
+               align = "lp{2cm}p{7cm}p{4cm}")
+print(table1,  comment=FALSE,
+      floating = FALSE, 
+      # floating.environment = "sidewaystable", 
+      tabular.environment = "longtable", 
+      size = "\\fontsize{8pt}{8pt}\\selectfont", 
+      booktabs = TRUE,
+      hline.after = c(-1, 0, 1, 
+                      6, 7, 
+                      10, 11, 
+                      15, 16, 
+                      23, 24, 
+                      28, 29,
+                      33, 34, 
+                      37, 38, 
+                      42, 43) )
+
+```
+
+\clearpage
+
+\newpage
+
+
+```{r table2, message=FALSE}
+library(xtable)
+table2 <- read.csv("../figures/table_2.csv", check.names = FALSE)
+table2 <- xtable(table2, 
+               caption = "Summary of degrees of reproducibility", 
+               align = "lp{4cm}p{10cm}")
+print(table2,  comment=FALSE,
+      floating = FALSE, 
+      # floating.environment = "sidewaystable", 
+      # tabular.environment = "longtable", 
+      size = "\\fontsize{8pt}{8pt}\\selectfont", 
+      booktabs = TRUE)
+
+```
+
+\begin{figure}[h!]
+  \caption{Workflow diagram showing key steps and software components. The boxes with a bold outline indicate key steps and tools that enable computational reproducibility in our project}
+  \centering
+\includegraphics[width=\textwidth]{../figures/figure_workflow.pdf}
+\label{fig:workflow}
+\end{figure}
+
+\newpage
+
+
+\begin{figure}[h!]
+  \caption{File organisation of the Figshare archive. The items with a dashed border are typical components of an R package, the solid outline indicates custom items added to form this specific compendium, and the shaded items indicate folders and the unshaded items indicate files}
+  \centering
+\includegraphics[width=\textwidth]{../figures/figure_compendium_filesystem.pdf}
+\label{fig:file_structure}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+  \caption{A small literate programming example showing a sample of R markdown script similar to that used in our publication (on the left), and the rendered output (on the right)}
+  \centering
+\includegraphics[width=\textwidth]{../figures/figure_literate_programming_example_scource.png}
+\label{fig:literate_programming}
+\end{figure}
+
+\newpage
+
+
+\begin{figure}[h!]
+  \caption{Git commit history graph. This excerpt shows a typical sequence of commits and commit messages for a research project. The seven character code are keys that uniquely identify each commit. The example here shows the creation and merging of a branch to experiment with a variation of a plot axis.}
+  \centering
+\includegraphics[width=\textwidth]{../figures/figure_git_graph.pdf}
+\label{fig:git}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+  \caption{Schematic of computer memory use of Docker compared to a typical virtual machine. This figure shows how much more efficiently Docker uses hardware resources compared to a virtual machine. }
+  \centering
+\includegraphics[width=10cm]{../figures/figure_virtual_environments.pdf}
+\label{fig:docker}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+  \caption{T-shaped and Pi-shaped researchers.}
+  \centering
+\includegraphics[width=\textwidth]{../figures/figure_t_and_pi_shaped.pdf}
+\label{fig:shapes}
+\end{figure}
+
+\newpage
+
+
+
+
+
+# References
+```{r create_r-references}
+r_refs(file = "references.bib")
+```
+
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+\setlength{\parskip}{8pt}

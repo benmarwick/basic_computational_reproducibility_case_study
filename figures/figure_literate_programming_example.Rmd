@@ -1,0 +1,36 @@
+---
+output: pdf_document
+geometry: margin=2.75in
+---
+
+```{r echo=FALSE}
+artefacts <- cars
+names(artefacts) <- c("distance from source (km)",  "mass (g)")
+artefacts[,1] <- rev(artefacts[,1])
+# knit to PDF, open in GIMP, crop, convert to PNG, open in Inkscape, place next to copy-paste of code below
+
+```
+
+
+## A Minimal Example of Literate Programming with R Markdown
+
+We examined the relationship between artefact mass and distance from source using a linear regression model:
+$Y = \beta_0 + \beta_1 x + \epsilon$.
+
+```{r model, echo=FALSE}
+# draw plot
+plot(artefacts, pch = 20, col = 'darkgray')
+#fit linear model
+fit <- lm(`mass (g)` ~ `distance from source (km)`,  
+               data = artefacts)
+# draw linear model regression line on plot
+abline(fit, lwd = 2)
+# get slope value to use in text
+slope <- round(coef(fit)[2],2)
+```
+The slope of a simple linear regression is `r slope`.
+
+
+
+
+
