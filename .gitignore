@@ -7,3 +7,5 @@
 .gz
 .ttt
 .log
+figures/*.log
+text/*.log
