@@ -133,6 +133,9 @@ amount is difficult to quantify.}
   \usepackage{longtable}
   \usepackage{rotating}
   \usepackage{booktabs}
+  \usepackage{lscape}
+  \usepackage{pdflscape}
+  \usepackage{rotating}
 
 \begin{document}
 
@@ -839,19 +842,26 @@ The results of these experiments suggest that changing research
 communication methods and tools is a slow process, but they are valuable
 to find mistakes in submissions that are otherwise not obvious to
 reviewers, and they show that such changes to editorial expectations are
-possible without the journal being abandoned by researchers.
+possible without the journal being abandoned by researchers. In
+archaeology, much progress has been made in this direction by
+researchers using agent-based modelling. Archaeological publications
+that employ agent-based models often make available the complete code
+for their model in a repository such as OpenABM, which has successfully
+established community norms for documenting and disseminating the
+computer code for agent-based models (Janssen, Alessa, Barton, Bergin,
+\& Lee, 2008).
 
 Software pervades every domain of research, and despite its importance
 in generating results, the choice of tools is very personal (Healy,
 2011), and archaeologists are given little guidance in the literature or
-during training. With this paper we hope to begin a discussion on
-general principles and specific tools to improve the computational
+during training. With this paper I hope to begin a discussion on general
+principles and specific tools to improve the computational
 reproducibility of published archaeological research. This discussion is
 important because the choice of tools has ethical implications about the
 reliability of claims made in publication. Tools that do not facilitate
 well-documented, transparent, portable and reproducible data analysis
 workflows may, at best, result in irreproducible, unextendable research
-that does little to advance the discipline, or, at worst, may conceal
+that does little to advance the discipline. At worst, they may conceal
 accidents or fraudulent behaviors that impede scientific advancement
 (Baggerly \& Coombes, 2009; Herndon, Ash, \& Pollin, 2014; Laine,
 Goodman, Griswold, \& Sox, 2007; Lang, 1993; Miller, 2006).
@@ -889,14 +899,14 @@ Tables
    \midrule
 2 & open source & Computer code where the source code is available for inspection, and may be freely re-used and distributed. R, Python and GNU/Linux are all open source. & https://opensource.org/osd \\ 
   3 & open access & Access to research products, such as publications and datasets, without financial or copyright barriers, but such that authors have control over the integrity of their work and the right to be acknowledged and cited. One approach is to publish in open access journals, such as PLoS ONE, another approach is to submit manuscripts of published papers to institutional repositories where they are freely available to the public. & http://www.budapestopenaccessinitiative.org/read \\ 
-  4 & reproducibility & A study is reproducible if there is a specific set of computational functions/analyses (usually specified in terms of code) that exactly reproduce all of the numbers and data visualisatios in a published paper from raw data. Reproducibiltiy does not require independent data collection and instead uses the methods and data collected by the original investigator. & https://osf.io/s9tya/ \\ 
+  4 & reproducibility & A study is reproducible if there is a specific set of computational functions/analyses (usually specified in terms of code) that exactly reproduce all of the numbers and data visualizations in a published paper from raw data. Reproducibility does not require independent data collection and instead uses the methods and data collected by the original investigator. & https://osf.io/s9tya/ \\ 
   5 & replicability & A study is replicated when another researcher independently implements the same methods of data collection and analysis with a new data set.  & http://languagelog.ldc.upenn.edu/nll/?p=21956 \\ 
   6 & provenance & The origin of data and code, including any transformations occurring along the way. &  \\ 
    \midrule
 7 & File formats &  &  \\ 
    \midrule
 8 & CSV & A common file format for collecting, sharing and archiving tabular data. This is a plain text file where variables (columns) are separated by commas. Thus the name, 'comma separated variables', it is closely related to TSV, 'tab separated variables' & http://www.digitalpreservation.gov/formats/fdd/fdd000323.shtml \\ 
-  9 & plain text & A file that contains simple text characters and no formatting (e.g. margins) or embedded images. Use of plain text files is not dependant on specific programs, so they can be created, read, and edited by almost any program, regardless of operating system and computer architecture. Using plain text formats allows a high degree of interoperability between computational environments, and ensures that your files can be read by other people with minimum effort. Most programming script files are plain text files. & http://www.linfo.org/plain\_text.html \\ 
+  9 & plain text & A file that contains simple text characters and no formatting (e.g. margins) or embedded images. Use of plain text files is not dependent on specific programs, so they can be created, read, and edited by almost any program, regardless of operating system and computer architecture. Using plain text formats allows a high degree of interoperability between computational environments, and ensures that your files can be read by other people with minimum effort. Most programming script files are plain text files. & http://www.linfo.org/plain\_text.html \\ 
   10 & binary & A file that must be interpreted by a specific program before it is human-readable and editable. For example,  PDF, Microsoft Word doc and Excel xls files are binary files, and can only be read and edited by those programs. Many commercial programs use proprietary binary file formats. This limits their interoperability and archival value. Images, video and audio files are also binary files. &  \\ 
    \midrule
 11 & Licenses for data and code &  &  \\ 
@@ -912,7 +922,7 @@ Tables
   18 & figshare & A commercial online digital repository where research output can be freely archived and openly accessed. Issues DOIs for individual files or groups of files. & http://figshare.com/ \\ 
   19 & zenodo & Similar to figshare, but a non-profit service operated by European Organization for Nuclear Research (known as CERN) & https://zenodo.org/ \\ 
   20 & tDAR & The Digital Archaeological Record (tDAR) is a  digital repository for the digital records of archaeological investigations. Fees are charged for archiving files, but access to open files is free. & https://www.tdar.org/ \\ 
-  21 & Open Context & A data publishing and archiving service. It is aimed at maximising the integration of data with other services (such as maps, media, and other data sets). Similar to tDAR, there are fees to upload but accessing open data is free. & http://opencontext.org/ \\ 
+  21 & Open Context & A data publishing and archiving service. It is aimed at maximizing the integration of data with other services (such as maps, media, and other data sets). Similar to tDAR, there are fees to upload but accessing open data is free. & http://opencontext.org/ \\ 
   22 & Archaeological Data Service & An open data repository focused on output from research and commercial archaeology in the UK. There are fees to upload but accessing open data is free. & http://archaeologydataservice.ac.uk/ \\ 
   23 & CLOCKSS & A not-for-profit joint venture between several academic publishers and research libraries to build a sustainable, geographically distributed dark archive with which to ensure the long-term survival of Web-based scholarly publications. & https://www.clockss.org/ \\ 
    \midrule
@@ -920,13 +930,13 @@ Tables
    \midrule
 25 & markdown & A simple, minimal language for formatting plain text files so that they can be converted into richly formatted HTML, PDF and Microsoft Word documents. Scholarly requirements such as citations, captions and cross-referencing can be enabled with a small amount of HTML or LaTeX and use of Pandoc. & http://daringfireball.net/projects/markdown/syntax \\ 
   26 & R markdown & A variant of markdown that extends it to allow chunks of R code to be embedded among the text. This results in a simple system for literate programming. For example, an R markdown document might have several paragraphs of text, then a chunk of R code that generates a figure, then several more paragraphs of text. Suitable for journal-article-length documents that include narrative text and output from statistical analysis.  & http://rmarkdown.rstudio.com/ \\ 
-  27 & LaTeX & A complex document preparation system optimised for producing technical and scientific documentation. Suitable for large multi-part documents such as complex journal articles, books and theses. Literate programming with R code interwoven among text is enabled via the knitr package.  & https://latex-project.org \\ 
+  27 & LaTeX & A complex document preparation system optimized for producing technical and scientific documentation. Suitable for large multi-part documents such as complex journal articles, books and theses. Literate programming with R code interwoven among text is enabled via the knitr package.  & https://latex-project.org \\ 
   28 & pandoc & An open source program for converting documents between a very wide variety of formats. Often used to convert markdown, R markdown and LaTeX documents to HTML (for web publication), PDF and Microsoft Word documents. It is built into RStudio. & http://pandoc.org/ \\ 
    \midrule
 29 & Scientific programming &  &  \\ 
    \midrule
 30 & script & A plain text file containing instructions for a computer written in a programming language, for example in R or Python &  \\ 
-  31 & R & A free and open source programming language with strengths in data analysis and visualisation. Most effective when used in combination with RStudio, a free and open source integrated development environment for R. & https://www.r-project.org/ \\ 
+  31 & R & A free and open source programming language with strengths in data analysis and visualization. Most effective when used in combination with RStudio, a free and open source integrated development environment for R. & https://www.r-project.org/ \\ 
   32 & Python & A free and open source programming language with a reputation for ease of use and being suitable for a wide range of scientific and commercial applications.  & https://www.python.org/ \\ 
   33 & MATLAB & A commercial programming language known for numerical and symbolic computing capabilities. The algorithms are proprietary, which means you cannot easily see the code of the algorithms and have to trust that MATLAB implemented it correctly. The proprietary nature also makes it hard, if not impossible, for others to extend or create tools for MATLAB. & http://www.mathworks.com/products/matlab \\ 
    \midrule
@@ -938,14 +948,14 @@ Tables
    \midrule
 38 & Computational environments &  &  \\ 
    \midrule
-39 & virtual machine & The use of software to emulate an entire operating system (such as GNU/Linux, Microsoft Windows or Apple OS X) within another computer. For example, you might use a virtual machine to use a GNU/Linux operating system on a laptop where the main operating system is Microsoft Windows. Virtual machines are convienent for reproducing an entire computational environment, but they can consume a lot of hard disk space which makes sharing and archiving challenging.  &  \\ 
+39 & virtual machine & The use of software to emulate an entire operating system (such as GNU/Linux, Microsoft Windows or Apple OS X) within another computer. For example, you might use a virtual machine to use a GNU/Linux operating system on a laptop where the main operating system is Microsoft Windows. Virtual machines are convenient for reproducing an entire computational environment, but they can consume a lot of hard disk space which makes sharing and archiving challenging.  &  \\ 
   40 & GNU/Linux & A free and open source computer operating system (i.e., an alternative to Microsoft Windows and Apple OS X). Commonly used for scientific computing, internet servers, supercomputers and Android phones and tablets. Popular distributions of GNU/Linux in academia include Ubuntu and Debian. & http://www.linux.org/ \\ 
   41 & Linux container & A system for running multiple isolated Linux systems (containers) on a single Linux control host. Isolation means that the dependencies can be well understood and documented. In a research context, containers are useful for encapsulating the all of the diverse components of a complex data analysis system. Containers take up less disk space than a virtual machine, and so are more efficient for sharing and archiving. & https://linuxcontainers.org/ \\ 
   42 & Docker & A free and open source system that simplifies the creation, use, sharing and archiving of Linux containers. In a research context Docker makes it easy to document and share computational environments so you can ensure that others have exactly the same software versions as you used. & https://www.docker.com/ \\ 
    \midrule
 43 & Communities &  &  \\ 
    \midrule
-44 & Software Carpentry & An international non-profit volunteer organisation focusing on teaching researchers basic software skills. Prioritises the use of free and open source software tools, encourages researchers to use permissive licenses for their research products. Target audience is novices with little or no prior computational experience.  & http://software-carpentry.org/ \\ 
+44 & Software Carpentry & An international non-profit volunteer organization focusing on teaching researchers basic software skills. Prioritizes the use of free and open source software tools, encourages researchers to use permissive licenses for their research products. Target audience is novices with little or no prior computational experience.  & http://software-carpentry.org/ \\ 
   45 & Data Carpentry & Similar to Software Carpentry, but focuses more on domain-specific training covering the full lifecycle of data-driven research. & http://www.datacarpentry.org/ \\ 
   46 & rOpenSci & A collaboration of volunteers from academia and industry developing R-based tools for making scientific research, data and publication freely accessible to the public. They also conduct workshops to train researchers to use R and related tools.  & https://ropensci.org/ \\ 
   \caption{Glossary of key terms used in the text} 
@@ -957,19 +967,25 @@ Tables
 
 \newpage
 
-\{\fontsize{8pt}{8pt}\selectfont
+\begin{landscape}
 
-\begin{tabular}{lp{4cm}p{10cm}}
+{\fontsize{8pt}{8pt}\selectfont
+\begin{longtable}{lp{2cm}p{5cm}p{5cm}p{5cm}p{5cm}}
   \toprule
- & Degree of reproducibility & Description \\ 
+ & Degree of reproducibility & Data & Analysis & Computational environment & Comment \\ 
   \midrule
-1 & Low reproducibility & The journal article is the only record of the research, with the reader invited to contact the author for more details. \\ 
-  2 & Moderate reproducbility & The journal article is accompanied by files of raw data tables in PDF files and supplementary text describing the methods in more detail. \\ 
-  3 & High reproducibility & The journal article includes DOIs to an open access repository that contains plain text files (e.g., CSV format) of raw data, version-controlled script files of R or Python code to reproduce the numbers and figures in the article, and a dockerfile that documents the computational environment of the published analysis.  \\ 
+1 & Not reproducible & Summary statistics of the raw data are presented. & Brief narrative of methods is presented. & No information is provided. & The current status quo for scholarly journal articles.  \\ 
+  2 & Low reproducibility & The reader invited to contact the author for access to the data. & Brief narrative of methods is presented, names and version numbers of software are stated. & No information is provided. & Frequently seen. Inviting readers to contact the author to access the raw data is no guarantee that the raw data is available.  \\ 
+  3 & Moderate reproducibility & The journal article is accompanied by files of raw data tables in PDF or Excel (i.e., binary) files. & Brief narrative of methods is presented, names and version numbers of software are stated. & No information is provided. & Frequently seen. Having the raw data in supplementary material makes it much more accessible compared to when it must be requested from the author. However, extracting raw data from a PDF or other binary file format can be  time-consuming and introduce errors. This presents obstacles to re-use of the data. \\ 
+  4 & High reproducibility & The journal article is accompanied by plain text files (e.g., CSV format) of raw data. & The journal article is accompanied by script files of R of Python code that demonstrate key parts of the analysis (but do not generate all the results presented in the paper). & No information is provided. & Uncommon. Raw data in plain text format makes re-use highly efficient. Script files with code  provide valuable insights into analytical decisions that are not narrated in the text of the article. However, because the code is not complete, substantial effort and skill is required by other researchers to reproduce the results of the article, and to re-use the code in new studies. This presents obstacles to re-use of the code. \\ 
+  5 & Very high reproducibility & The journal article includes DOIs to an open access repository that contains plain text files (e.g., CSV format) of raw data. & The open access repository linked to from the paper includes version-controlled R package or script files of R or Python code to reproduce all of the analysis output and graphics in the article. & The open access repository linked to from the paper includes a dockerfile that documents the computational environment of the published analysis, and a docker image that allows another person to use that environment. & Currently rarely seen. Other researchers should have a good chance to reproduce, re-use and extend the published results with this combination of plain text data files, code that documents every analysis and visualization in the paper, and details of the computational environment of the original analysis. Note that this does not guarantee permanent reproducibility, but it gives the best odds we can currently provide. The use of an open access repository means that researchers can access the files even if they do not have a subscription to the journal, and ensures the availability of the files if the journal website changes.  \\ 
+  6 &  &  &  &  &  \\ 
    \bottomrule
-\end{tabular}
+\caption{Summary of degrees of reproducibility} 
+\end{longtable}
+}
 
-\}
+\end{landscape}
 
 \begin{figure}[h!]
   \caption{Workflow diagram showing key steps and software components. The boxes with a bold outline indicate key steps and tools that enable computational reproducibility in our project}
@@ -1243,6 +1259,11 @@ doi:\href{http://dx.doi.org/10.1109/MCSE.2012.62}{10.1109/MCSE.2012.62}
 Ince, D. C., Hatton, L., \& Graham-Cumming, J. (2012). The case for open
 computer programs. \emph{Nature}, \emph{482}(7386), 485--488.
 doi:\href{http://dx.doi.org/10.1038/nature10836}{10.1038/nature10836}
+
+Janssen, M. A., Alessa, L. N., Barton, M., Bergin, S., \& Lee, A.
+(2008). Towards a community framework for agent-based modelling.
+\emph{Journal of Artificial Societies and Social Simulation},
+\emph{11}(2), 6.
 
 Jones, Z. M. (2013). Git/GitHub, transparency, and legitimacy in
 quantitative research. \emph{The Political Methodologist}, \emph{21}(1),

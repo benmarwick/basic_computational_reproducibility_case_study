@@ -36,6 +36,9 @@ header-includes:
    - \usepackage{longtable}
    - \usepackage{rotating}
    - \usepackage{booktabs}
+   - \usepackage{lscape}
+   - \usepackage{pdflscape}
+   - \usepackage{rotating}
 
 output: papaja::apa6_pdf
 ---
@@ -129,9 +132,9 @@ We have outlined one potential standard way for enhancing the reproducibility of
 
 Two future directions follow from the principles, tools and challenges that we have discussed above. First, the rarity of archaeologists with the computational skills necessary for reproducible research (as we observed on our group) highlights the need for future archaeologists to be trained as Pi-shaped researchers, rather than T-shaped researchers (Figure \ref{fig:shapes}). Current approaches to postgraduate training for archaeologists results in T-shaped researchers with wide-but-shallow general knowledge, but deep expertise and skill in one particular area. In contrast, a Pi-shaped researcher has the same wide breadth, but to have deep knowledge of both their own domain-specific specialization, as well as a second area of deep knowledge in the computational principles and tools that enable reproducible research [@Faris2011].
 
-A second future direction is the need to incentivise training in, and practicing of, reproducible research by changing the editorial standards of archaeology journals. Although all the technologies and infrastructure to enhance research reproducibility are already available, they are not going to be widely used by researchers until there are strong incentives and a detailed mandate [@McCullough2008; @McCullough2006; @McCullough2003]. One way to incentivise improvements to reproducibility is for journal editors to require submission of research compendia in place of the conventional stand-alone manuscript submission [@Miguel2014]. A research compendium is a manuscript accompanied by code and data files (or persistent links to reputable online repositories) that allows reviewers and readers to reproduce and extend the results without needing any further materials from the original authors [@Gentleman2007a; @king1995replication]. This paper is an example of a research compendium, with the source files available at http://dx.doi.org/10.6084/m9.figshare.1563661, and the case study paper on Madgebebe is more complex example of a compendium, online at http://dx.doi.org/10.6084/m9.figshare.1297059. Requiring submission of compendia instead of simply manuscripts is currently being experimented with by journals in other fields (eg. Quarterly Journal of Political Science, Biostatistics) [@Peng2009; @nosek2015promoting]. The results of these experiments suggest that changing research communication methods and tools is a slow process, but they are valuable to find mistakes in submissions that are otherwise not obvious to reviewers, and they show that such changes to editorial expectations are possible without the journal being abandoned by researchers.
+A second future direction is the need to incentivise training in, and practicing of, reproducible research by changing the editorial standards of archaeology journals. Although all the technologies and infrastructure to enhance research reproducibility are already available, they are not going to be widely used by researchers until there are strong incentives and a detailed mandate [@McCullough2008; @McCullough2006; @McCullough2003]. One way to incentivise improvements to reproducibility is for journal editors to require submission of research compendia in place of the conventional stand-alone manuscript submission [@Miguel2014]. A research compendium is a manuscript accompanied by code and data files (or persistent links to reputable online repositories) that allows reviewers and readers to reproduce and extend the results without needing any further materials from the original authors [@Gentleman2007a; @king1995replication]. This paper is an example of a research compendium, with the source files available at http://dx.doi.org/10.6084/m9.figshare.1563661, and the case study paper on Madgebebe is more complex example of a compendium, online at http://dx.doi.org/10.6084/m9.figshare.1297059. Requiring submission of compendia instead of simply manuscripts is currently being experimented with by journals in other fields (eg. Quarterly Journal of Political Science, Biostatistics) [@Peng2009; @nosek2015promoting]. The results of these experiments suggest that changing research communication methods and tools is a slow process, but they are valuable to find mistakes in submissions that are otherwise not obvious to reviewers, and they show that such changes to editorial expectations are possible without the journal being abandoned by researchers. In archaeology, much progress has been made in this direction by researchers using agent-based modelling. Archaeological publications that employ agent-based models often make available the complete code for their model in a repository such as OpenABM, which has successfully established community norms for documenting and disseminating the computer code for agent-based models [@janssen2008towards]. 
 
-Software pervades every domain of research, and despite its importance in generating results, the choice of tools is very personal [@Healy2011], and archaeologists are given little guidance in the literature or during training. With this paper we hope to begin a discussion on general principles and specific tools to improve the computational reproducibility of published archaeological research. This discussion is important because the choice of tools has ethical implications about the reliability of claims made in publication. Tools that do not facilitate well-documented, transparent, portable and reproducible data analysis workflows may, at best, result in irreproducible, unextendable research that does little to advance the discipline, or, at worst, may conceal accidents or fraudulent behaviors that impede scientific advancement [@baggerly2009deriving; @Lang1993; @Herndon2014; @Laine2007a; @Miller2006].
+Software pervades every domain of research, and despite its importance in generating results, the choice of tools is very personal [@Healy2011], and archaeologists are given little guidance in the literature or during training. With this paper I hope to begin a discussion on general principles and specific tools to improve the computational reproducibility of published archaeological research. This discussion is important because the choice of tools has ethical implications about the reliability of claims made in publication. Tools that do not facilitate well-documented, transparent, portable and reproducible data analysis workflows may, at best, result in irreproducible, unextendable research that does little to advance the discipline. At worst, they may conceal accidents or fraudulent behaviors that impede scientific advancement [@baggerly2009deriving; @Lang1993; @Herndon2014; @Laine2007a; @Miller2006].
 
 # Acknowledgements
 
@@ -174,21 +177,24 @@ print(table1,  comment=FALSE,
 
 \newpage
 
+\begin{landscape}
 
 ```{r table2, message=FALSE}
 library(xtable)
 table2 <- read.csv("../figures/table_2.csv", check.names = FALSE)
 table2 <- xtable(table2, 
                caption = "Summary of degrees of reproducibility", 
-               align = "lp{4cm}p{10cm}")
-print(table2,  comment=FALSE,
+               align = "lp{2cm}p{5cm}p{5cm}p{5cm}p{5cm}")
+print(table2,  comment = FALSE,
       floating = FALSE, 
-      # floating.environment = "sidewaystable", 
-      # tabular.environment = "longtable", 
+      #floating.environment = "sidewaystable", 
+      tabular.environment = "longtable", 
       size = "\\fontsize{8pt}{8pt}\\selectfont", 
       booktabs = TRUE)
 
 ```
+
+\end{landscape}
 
 \begin{figure}[h!]
   \caption{Workflow diagram showing key steps and software components. The boxes with a bold outline indicate key steps and tools that enable computational reproducibility in our project}
