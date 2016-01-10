@@ -16,17 +16,29 @@ This repository contains the research compendium for my paper in the *Journal of
 
 > Marwick, B. (2016). Computational reproducibility in archaeological research: Basic principles and a case study of their implementation. *Journal of Archaeological Method and Theory*, 1-27. doi: 10.1007/s10816-015-9272-9
 
-The paper is available as an Open Access author-accepted manuscript, or the final published copy on the subscription-only site for the [Journal of Human Evolution](http://link.springer.com/article/10.1007/s10816-015-9272-9)
+The paper is available as an [Open Access author-accepted manuscript], or the final published copy on the subscription-only site for the [Journal of Archaeological Method and Theory](http://link.springer.com/article/10.1007/s10816-015-9272-9)
 
 Here's a bibtex-style citation for easy copy-pasting:
 
-@article{ year={2016}, issn={1072-5369}, journal={Journal of Archaeological Method and Theory}, doi={10.1007/s10816-015-9272-9}, title={Computational Reproducibility in Archaeological Research: Basic Principles and a Case Study of Their Implementation}, url={<http://dx.doi.org/10.1007/s10816-015-9272-9>}, publisher={Springer US}, keywords={Reproducible research; Computer programming; Software engineering; Australian archaeology; Open science}, author={Marwick, Ben}, pages={1-27}, language={English} }
+    @article{
+    year={2016},
+    issn={1072-5369},
+    journal={Journal of Archaeological Method and Theory},
+    doi={10.1007/s10816-015-9272-9},
+    title={Computational Reproducibility in Archaeological Research: Basic Principles and a Case Study of Their Implementation},
+    url={http://dx.doi.org/10.1007/s10816-015-9272-9},
+    publisher={Springer US},
+    keywords={Reproducible research; Computer programming; Software engineering; Australian archaeology; Open science},
+    author={Marwick, Ben},
+    pages={1-27},
+    language={English}
+    }
 
 ### How to use
 
-See the [`text`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/text) directory on GitHub for the source code that generated the manuscript. The Rmd file is the original source document, and the docx was required by the publisher for submission.
+See the [`text`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/tree/master/text) directory on GitHub for the [source code](https://github.com/benmarwick/basic_computational_reproducibility_case_study/blob/master/text/basic_computational_reproducibility.Rmd) that generated the manuscript. The Rmd file is the original source document, and the docx was required by the publisher for submission.
 
-See the [`published PDF`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/published) here in this repository.
+See the [`published PDF`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/tree/master/published) here in this repository.
 
 ### Dependencies
 
