@@ -40,7 +40,7 @@ header-includes:
    - \usepackage{pdflscape}
    - \usepackage{rotating}
 
-output: papaja::apa6_word
+output: papaja::apa6_pdf
 ---
 
 ```{r message = FALSE, warning = FALSE}
@@ -261,6 +261,7 @@ print(table2,  comment = FALSE,
 # References
 ```{r create_r-references}
 r_refs(file = "references.bib")
+sessionInfo()
 ```
 
 \setlength{\parindent}{-0.5in}

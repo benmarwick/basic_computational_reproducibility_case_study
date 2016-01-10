@@ -1,0 +1,84 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# Computational Reproducibility in Archaeological Research: Basic Principles and a Case Study of Their Implementation
+
+### Compendium URL
+
+https://dx.doi.org/10.6084/m9.figshare.1563661
+
+### Author
+
+Ben Marwick (benmarwick@gmail.com)
+
+### Contents
+
+This repository contains the research compendium for my paper in the _Journal of Archaeological Method and Theory_:
+
+> Marwick, B. (2016). Computational reproducibility in archaeological research: Basic principles and a case study of their implementation. _Journal of Archaeological Method and Theory_, 1-27. doi: 10.1007/s10816-015-9272-9
+
+
+The paper is available as an Open Access author-accepted manuscript, or the final published copy on the subscription-only site for the [Journal of Human Evolution](http://link.springer.com/article/10.1007/s10816-015-9272-9)
+
+Here's a bibtex-style citation for easy copy-pasting:
+
+@article{
+year={2016},
+issn={1072-5369},
+journal={Journal of Archaeological Method and Theory},
+doi={10.1007/s10816-015-9272-9},
+title={Computational Reproducibility in Archaeological Research: Basic Principles and a Case Study of Their Implementation},
+url={http://dx.doi.org/10.1007/s10816-015-9272-9},
+publisher={Springer US},
+keywords={Reproducible research; Computer programming; Software engineering; Australian archaeology; Open science},
+author={Marwick, Ben},
+pages={1-27},
+language={English}
+}
+
+
+### How to use
+
+See the [`text`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/text) directory on GitHub for the source code that generated the manuscript. The Rmd file is the original source document, and the docx was required by the publisher for submission. 
+
+See the [`published PDF`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/published) here in this repository. 
+
+### Dependencies
+
+I used RStudio v0.99.825. To generate a docx from the Rmd, see the `R Session Information` below for the R version and packages that I used. To generate a PDF, I used LaTeX (MiKTeX 2.9). 
+
+### Licenses:
+
+Text: CC-BY-4.0 http://creativecommons.org/licenses/by/4.0/
+
+Code: MIT http://opensource.org/licenses/MIT year: 2015, copyright holder: Ben Marwick
+
+Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/ 
+
+
+### Notes and resources ##
+
+* The [issues tracker](https://github.com/benmarwick/basic_computational_reproducibility_case_study/issues) is the place to report problems or ask questions  
+
+* See the repository [history](https://github.com/benmarwick/basic_computational_reproducibility_case_study/commits/master) for a fine-grained view of progress and changes.
+
+* The organisation of this compendium is based on the work of [Carl Boettiger](http://www.carlboettiger.info/) 
+
+### R Session Information
+
+````{r}
+sessionInfo()
+```
