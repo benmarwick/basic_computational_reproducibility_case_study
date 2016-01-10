@@ -54,7 +54,7 @@ language={English}
 
 ### How to use
 
-See the [`text`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/tree/master/text) directory on GitHub for the [source code](https://github.com/benmarwick/basic_computational_reproducibility_case_study/blob/master/text/basic_computational_reproducibility.Rmd) that generated the manuscript. The Rmd file is the original source document, and the docx file was required by the publisher for submission. 
+See the [`text`](https://github.com/benmarwick/basic_computational_reproducibility_case_study/tree/master/text) directory on GitHub for the [source code](https://github.com/benmarwick/basic_computational_reproducibility_case_study/blob/master/text/basic_computational_reproducibility.Rmd) that generated the manuscript. The [Rmd file](https://github.com/benmarwick/basic_computational_reproducibility_case_study/blob/master/text/basic_computational_reproducibility.Rmd) is the original source document, and the docx file was required by the publisher for submission. 
 
 See the published PDF ([view in browser](https://github.com/benmarwick/basic_computational_reproducibility_case_study/blob/master/published/Marwick_2016_basic_computational_reproducibility.pdf) or [download](https://github.com/benmarwick/basic_computational_reproducibility_case_study/raw/master/published/Marwick_2016_basic_computational_reproducibility.pdf)) here in this repository. 
 
